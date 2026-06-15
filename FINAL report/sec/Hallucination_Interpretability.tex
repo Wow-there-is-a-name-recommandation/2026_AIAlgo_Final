@@ -1,0 +1,160 @@
+\subsection{Representation-level Hallucination Interpretability}
+
+Existing hallucination mitigation methods focus on reducing hallucinated outputs but provide limited interpretability of hallucination-related representations. To address this limitation, we introduce a prototype-based CBM that learns hallucination concepts in hidden representation space and analyzes representations through concept activations.
+
+
+\subsubsection{Prototype-based Concept Learning}
+
+CBMs require concept-level supervision, but hallucination concepts are not explicitly annotated in hidden representation space. To obtain interpretable concepts, we learn layer-wise prototypes corresponding to Safe and Existence hallucination categories and construct a prototype bank across all transformer layers.
+
+Given a hidden representation $h_i^l$ from transformer layer $l$, a prototype encoder projects it into a lower-dimensional embedding space $z_i^l$. The encoded representation is compared with learnable concept prototypes using cosine similarity $s_{i,l,c}$, where $c \in \{\text{safe}, \text{existence}\}$ denotes the concept category.
+
+To obtain discriminative concept representations, we jointly optimize classification, clustering, and separation objectives. The classification loss encourages correct concept assignment, the cluster loss pulls samples toward the corresponding prototype, and the separation loss pushes samples away from other concept prototypes.
+
+Algorithm~\ref{alg:layerwise_prototype_learning} summarizes the prototype learning procedure.
+
+\begin{algorithm}[!t]
+\caption{Layer-wise Prototype Learning for Safe / Existence Concepts}
+\label{alg:layerwise_prototype_learning}
+\begin{algorithmic}[1]
+\Require Layer-wise hidden representations $\mathcal{H}=\{(H_i, y_i)\}_{i=1}^{N}$, where $y_i \in \{\text{safe}, \text{existence}\}$
+\Require $H_i = [h_i^{1}, h_i^{2}, \dots, h_i^{L}]$, where $h_i^{l}\in\mathbb{R}^{d_h}$
+\Require Learnable layer-wise prototypes $\{p_{l,c}\}_{l=1,c\in\{\text{safe},\text{exist}\}}^{L}$
+\Require Prototype encoder $f_\theta:\mathbb{R}^{d_h}\rightarrow\mathbb{R}^{d_z}$
+
+\For{each training epoch}
+    \For{each mini-batch $\mathcal{B}\subset\mathcal{H}$}
+        \For{each sample $(H_i,y_i)\in\mathcal{B}$}
+            \For{each layer $l=1,\dots,L$}
+                \State Encode layer representation
+                \[
+                    z_i^l \leftarrow f_\theta(h_i^l)
+                \]
+
+                \State Normalize representation and prototypes
+                \[
+                    \tilde{z}_i^l \leftarrow \frac{z_i^l}{\|z_i^l\|_2},
+                    \quad
+                    \tilde{p}_{l,c} \leftarrow \frac{p_{l,c}}{\|p_{l,c}\|_2}
+                \]
+
+                \State Compute prototype similarity
+                \[
+                    s_{i,l,c}
+                    =
+                    (\tilde{z}_i^l)^\top \tilde{p}_{l,c}
+                \]
+            \EndFor
+
+            \State Aggregate layer-wise similarities
+            \[
+                \ell_{i,c}
+                =
+                \frac{1}{L}
+                \sum_{l=1}^{L}
+                s_{i,l,c}
+            \]
+
+            \State Compute prototype loss
+            \[
+                \mathcal{L}_{i}
+                =
+                \mathcal{L}_{cls}^{i}
+                +
+                \lambda_c \mathcal{L}_{cluster}^{i}
+                +
+                \lambda_s \mathcal{L}_{sep}^{i}
+            \]
+        \EndFor
+
+        \State Compute mini-batch loss
+        \[
+            \mathcal{L}_{proto}
+            =
+            \frac{1}{|\mathcal{B}|}
+            \sum_{(H_i,y_i)\in\mathcal{B}}
+            \mathcal{L}_i
+        \]
+
+        \State Update encoder and prototypes
+    \EndFor
+\EndFor
+
+\State \Return $f_\theta,\{p_{l,c}\}$
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Concept Bottleneck Module}
+
+After learning concept prototypes, we train a CBM. Instead of directly predicting hallucination labels from hidden representations, the CBM estimates concept activations from prototype similarities, providing an interpretable bottleneck between representations and hallucination prediction.
+
+For each sample, prototype similarities from all transformer layers are aggregated into a concept vector $v_i$. The vector is processed by an MLP $g_\phi$, and concept activations $\hat{c}_i$ are obtained through a sigmoid function.
+
+To improve concept interpretability, we optimize the CBM using both prediction and concept supervision objectives. Binary cross-entropy encourages correct concept prediction, while sparsity regularization discourages multiple concepts from being activated simultaneously.
+
+\[
+\mathcal{L}_{CBM}
+=
+\mathcal{L}_{CE}
++
+\lambda_{BCE}\mathcal{L}_{BCE}
++
+\lambda_{sparse}\mathcal{L}_{sparse}
+\]
+
+Algorithm~\ref{alg:layerwise_cbm_training} summarizes the CBM training procedure. The learned concept activations provide an interpretable view of hidden representations and enable hallucination analysis at the representation level. By preserving layer-wise prototype similarities, the proposed framework allows investigation of how hallucination-related information evolves.
+
+\begin{algorithm}[!t]
+\caption{Layer-wise Concept Bottleneck Training with Prototype Activations}
+\label{alg:layerwise_cbm_training}
+\begin{algorithmic}[1]
+\Require Layer-wise hidden representations $\mathcal{H}$
+\Require Trained prototype bank $\{p_{l,c}\}$
+\Require Prototype encoder $f_\theta$
+\Require Concept bottleneck layer $g_\phi$
+
+\For{each training epoch}
+    \For{each mini-batch}
+        \For{each sample}
+            \For{each layer $l$}
+                \State Encode representation
+                \[
+                z_i^l=f_\theta(h_i^l)
+                \]
+
+                \State Compute similarity
+                \[
+                s_{i,l,c}
+                =
+                \cos(z_i^l,p_{l,c})
+                \]
+            \EndFor
+
+            \State Aggregate concept vector
+            \[
+            v_i
+            =
+            \left[
+            \frac{1}{L}\sum_l s_{i,l,1},
+            \dots,
+            \frac{1}{L}\sum_l s_{i,l,K}
+            \right]
+            \]
+
+            \State Predict concept activations
+            \[
+            \hat{c}_i
+            =
+            \sigma(g_\phi(v_i))
+            \]
+
+            \State Compute CBM loss
+        \EndFor
+
+        \State Update CBM parameters
+    \EndFor
+\EndFor
+
+\State \Return $g_\phi$
+\end{algorithmic}
+\end{algorithm}

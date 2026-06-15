@@ -1,0 +1,31 @@
+\begin{thebibliography}{3}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Lu et~al.(2024)Lu, Wang, Li, Liu, and Kong]{lu2024mace}
+Shilin Lu, Zilan Wang, Leyang Li, Yanzhu Liu, and Adams Wai-Kin Kong.
+\newblock Mace: Mass concept erasure in diffusion models.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition}, pages 6430--6440, 2024.
+
+\bibitem[Lyu et~al.(2024)Lyu, Yang, Hong, Chen, Jin, He, Xue, Han, and
+  Ding]{lyu2024one}
+Mengyao Lyu, Yuhong Yang, Haiwen Hong, Hui Chen, Xuan Jin, Yuan He, Hui Xue,
+  Jungong Han, and Guiguang Ding.
+\newblock One-dimensional adapter to rule them all: Concepts diffusion models
+  and erasing applications.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition}, pages 7559--7568, 2024.
+
+\bibitem[Schramowski et~al.(2023)Schramowski, Brack, Deiseroth, and
+  Kersting]{schramowski2023safe}
+Patrick Schramowski, Manuel Brack, Bj{\"o}rn Deiseroth, and Kristian Kersting.
+\newblock Safe latent diffusion: Mitigating inappropriate degeneration in
+  diffusion models.
+\newblock In \emph{Proceedings of the IEEE/CVF conference on computer vision
+  and pattern recognition}, pages 22522--22531, 2023.
+
+\end{thebibliography}
