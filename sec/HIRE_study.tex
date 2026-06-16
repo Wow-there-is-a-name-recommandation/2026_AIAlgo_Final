@@ -1,0 +1,10 @@
+\subsection{HIRE}
+
+Recent studies have shown that hallucination-related information can be identified in the hidden representations of LVLMs. Based on this observation, HIRE \citep{suo2026hallucination} proposes a representation-level hallucination manipulation framework consisting of an editor and a router.
+
+HIRE learns to disentangle semantic and hallucination-related representations through image perturbation. Clean and perturbed images are encoded into latent representations, and a clustering objective is used to separate hallucination-related and reliable latent representations while preserving semantic information. Based on the learned representation space, HIRE derives editing directions that can either suppress or amplify hallucination behavior through a controllable editing scale.
+
+To improve efficiency, HIRE further introduces a router that selectively applies editing to a subset of tokens. The router is trained using Dynamic Preference Optimization with randomly generated editing trajectories, enabling efficient hallucination mitigation while reducing computational cost.
+
+Although HIRE achieves strong hallucination mitigation performance, it requires additional training for representation editing and routing. Furthermore, the relationship between perturbation-induced representations and hallucination formation remains insufficiently explained.
+

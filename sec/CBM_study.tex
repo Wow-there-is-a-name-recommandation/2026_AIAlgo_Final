@@ -1,0 +1,8 @@
+\subsection{Interpretable Model Structure}
+
+Interpretable neural network architectures have been widely studied to improve model transparency. One representative approach is the Concept Bottleneck Model (CBM) \citep{koh2020concept}, which introduces an intermediate concept layer between hidden representations and final predictions. By explicitly modeling concept activations, CBMs enable interpretation of how information contributes to model decisions.
+
+However, CBMs require concept-level supervision, which is unavailable for hallucination-related representations in LVLM hidden spaces. To address this limitation, we adopt prototype learning methods \citep{singh2021these, kim2022vit}. Prototype learning constructs representative prototypes for each class and learns discriminative feature patterns directly from hidden representations. As a result, meaningful concepts can be extracted without explicit representation-level annotations.
+
+In this work, we use prototype learning to construct representation-level hallucination concepts and train a CBM on the resulting prototype activations. This enables concept-level analysis of hallucination-related representations.
+

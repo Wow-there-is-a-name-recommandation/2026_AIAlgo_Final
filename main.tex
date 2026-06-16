@@ -1,0 +1,113 @@
+% CVPR 2026 Paper Template; see https://github.com/cvpr-org/author-kit
+
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+%%%%%%%%% PAPER TYPE  - PLEASE UPDATE FOR FINAL VERSION
+% \usepackage{cvpr}              % To produce the CAMERA-READY version
+\usepackage{cvpr}      % To produce the REVIEW version
+% \usepackage[pagenumbers]{cvpr} % To force page numbers, e.g. for an arXiv version
+
+% Import additional packages in the preamble file, before hyperref
+\input{preamble}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+
+\setlength{\textfloatsep}{6pt}
+\setlength{\floatsep}{6pt}
+\setlength{\intextsep}{6pt}
+
+% It is strongly recommended to use hyperref, especially for the review version.
+% hyperref with option pagebackref eases the reviewers' job.
+% Please disable hyperref *only* if you encounter grave issues, 
+% e.g. with the file validation for the camera-ready version.
+%
+% If you comment hyperref and then uncomment it, you should delete *.aux before re-running LaTeX.
+% (Or just hit 'q' on the first LaTeX run, let it finish, and you should be clear).
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref}
+
+%%%%%%%%% PAPER ID  - PLEASE UPDATE
+\def\confYear{2026}
+
+%%%%%%%%% TITLE - PLEASE UPDATE
+\title{Exploring Hallucination-Aware Extensions of HIRE for LVLMs}
+
+%%%%%%%%% AUTHORS - PLEASE UPDATE
+\author{Seongrae Noh\\
+---------\\
+{\tt\small -----------@gmail.com}
+\and
+Hyowone Woo\\
+-----------------\\
+{\tt\small ---------------@gmail.com}
+\and
+Sangheum Jo\\
+2026020945\\
+{\tt\small sanghuem20@gmail.com}
+% For a paper whose authors are all at the same institution,
+% omit the following lines up until the closing ``}''.
+% Additional authors and addresses can be added with ``\and'',
+% just like the second author.
+% To save space, use either the email address or home page, not both
+}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Base on hire, we try vti and interpretablilty
+\end{abstract}   
+
+\input{sec/1_intro}
+
+
+\section{Related Work}
+
+\input{sec/HIRE_study}
+
+\subsection{VTI}
+model training free but week sementic retain so projection
+
+\input{sec/CBM_study}
+
+
+\section{Method}
+Here we talk about what we do.
+
+----------------------------------------------------------
+\subsection{Sementic Representation in Training free}
+
+We try extend two way, traintig free hallusioanation. Make new tex at sec folder and input here
+
+\subsubsection{Problem Setup}
+
+use vti
+
+\subsubsection{Prompt Filtering via Subspace Projection}
+
+wkwjeifjakljdlkfa
+
+--------------------------------------------------------------------
+\input{sec/Hallucination_Interpretability}
+
+
+\section{Experiments}
+
+We test our project
+
+\input{sec/InterHalluRes}
+
+\section{Conclusion}
+
+conocnconcocnocnocno
+
+{\small
+\bibliographystyle{ieeenat_fullname}
+\bibliography{refs}
+} 
+
+
+% WARNING: do not forget to delete the supplementary pages from your submission 
+% \input{sec/X_suppl}
+
+\end{document}
