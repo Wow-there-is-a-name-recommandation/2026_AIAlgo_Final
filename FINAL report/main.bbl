@@ -1,0 +1,43 @@
+\begin{thebibliography}{5}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Kim et~al.(2022)Kim, Nam, and Ko]{kim2022vit}
+Sangwon Kim, Jaeyeal Nam, and Byoung~Chul Ko.
+\newblock Vit-net: Interpretable vision transformers with neural tree decoder.
+\newblock In \emph{International conference on machine learning}, pages
+  11162--11172. PMLR, 2022.
+
+\bibitem[Koh et~al.(2020)Koh, Nguyen, Tang, Mussmann, Pierson, Kim, and
+  Liang]{koh2020concept}
+Pang~Wei Koh, Thao Nguyen, Yew~Siang Tang, Stephen Mussmann, Emma Pierson, Been
+  Kim, and Percy Liang.
+\newblock Concept bottleneck models.
+\newblock In \emph{International conference on machine learning}, pages
+  5338--5348. PMLR, 2020.
+
+\bibitem[Singh and Yow(2021)]{singh2021these}
+Gurmail Singh and Kin-Choong Yow.
+\newblock These do not look like those: An interpretable deep learning model
+  for image recognition.
+\newblock \emph{IEEE Access}, 9:\penalty0 41482--41493, 2021.
+
+\bibitem[Suo et~al.(2026)Suo, Zhang, Zhang, Ma, Wang, and
+  Zhang]{suo2026hallucination}
+Wei Suo, Hanzu Zhang, Lijun Zhang, Ji Ma, Peng Wang, and Yanning Zhang.
+\newblock Hallucination-aware intermediate representation edit in large
+  vision-language models.
+\newblock \emph{arXiv preprint arXiv:2603.29405}, 2026.
+
+\bibitem[Wang et~al.(2023)Wang, Wang, Xu, Zhang, Gu, Jia, Wang, Xu, Yan, Zhang,
+  et~al.]{wang2023amber}
+Junyang Wang, Yuhang Wang, Guohai Xu, Jing Zhang, Yukai Gu, Haitao Jia, Jiaqi
+  Wang, Haiyang Xu, Ming Yan, Ji Zhang, et~al.
+\newblock Amber: An llm-free multi-dimensional benchmark for mllms
+  hallucination evaluation.
+\newblock \emph{arXiv preprint arXiv:2311.07397}, 2023.
+
+\end{thebibliography}
