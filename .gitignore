@@ -1,0 +1,15 @@
+# Dataset
+HIRE/data/
+HIRE/output
+
+# Checkpoints
+HIRE/checkpoints/
+HIRE/llava/
+
+
+# Cache
+__pycache__/
+*.pyc
+
+# Logs
+*.log
